@@ -1,5 +1,6 @@
 # UsefulLinuxAliases
-List of useful Linux Aliases to add into bashrc
+List of useful Linux Aliases to add into bashrc.  
+Remember to refresh using `. ~/.bashrc` or what else you are editing.
 
 #### Kill a list of process using their command name
 ```bash
