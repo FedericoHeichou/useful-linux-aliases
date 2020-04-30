@@ -20,3 +20,19 @@ mem(){
   ps -eo rss,pid,euser,args:100 --sort %mem | grep -v grep | grep -i $@ | awk '{ sum += $1; printf $1/1024 "MB"; $1=""; print } END { print "Total memory usage: " sum/1024 "MB" }'
 }
 ```
+
+#### Slows and reset bandwidth
+```bash
+alias rallenta="sudo wondershaper enp2s0 2048 300"
+alias reimposta="sudo wondershaper clear enp2s0"
+```
+
+#### mkdir then cd
+```bash
+mkcd() { mkdir "$1" && cd "$1"; }
+```
+
+#### What is my public ip
+```bash
+alias whatismyip="dig +short myip.opendns.com @resolver1.opendns.com"
+```
