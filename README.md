@@ -35,4 +35,25 @@ mkcd() { mkdir "$1" && cd "$1"; }
 #### What is my public ip
 ```bash
 alias whatismyip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+```
+#### Server web via docker (www in app/ and db in mysql/)
+```bash
+# A helper function to launch docker container using mattrayner/lamp with overrideable parameters
+#
+# $1 - Apache Port (optional)
+# $2 - MySQL Port (optional - no value will cause MySQL not to be mapped)
+function launchdockerwithparams {
+    APACHE_PORT=80
+    MYSQL_PORT_COMMAND=""
+    if ! [[ -z "$1" ]]; then
+        APACHE_PORT=$1
+    fi
+    if ! [[ -z "$2" ]]; then
+        MYSQL_PORT_COMMAND="-p \"$2:3306\""
+    fi
+    docker run -i -t -p "$APACHE_PORT:80" $MYSQL_PORT_COMMAND -v ${PWD}/app:/app -v ${PWD}/mysql:/var/lib/mysql mattrayner/lamp:latest
+}
+alias launchdocker='launchdockerwithparams $1 $2'
+alias ldi='launchdockerwithparams $1 $2'
 ```
