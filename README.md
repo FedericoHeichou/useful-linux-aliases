@@ -57,3 +57,16 @@ function launchdockerwithparams {
 alias launchdocker='launchdockerwithparams $1 $2'
 alias ldi='launchdockerwithparams $1 $2'
 ```
+
+#### Check differences between two repositories (for example if you want to perform a full Laravel upgrade)
+```bash
+function gitdifferences {
+    git clone "$1" base || (echo "Usage: gitdifferences url_git_base url_git_new" && return 1)
+    git clone "$2" new || (echo "Usage: gitdifferences url_git_base url_git_new" && return 1)
+    cd base
+    git remote add new ../new/
+    git fetch new master:diff
+    git diff diff
+    # Then using a program like PhpStorm check "branches", click on "diff" branch then "Show Diff with Working Tree"
+}
+```
