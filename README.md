@@ -70,3 +70,11 @@ function gitdifferences {
     # Then using a program like PhpStorm check "branches", click on "diff" branch then "Show Diff with Working Tree"
 }
 ```
+
+#### Exec a command inside a Docker container (if no command provided exec bash or sh)
+```bash
+function dockerexec {
+    ! [[ -z "$2" ]] && docker exec -it $1 $2 || docker exec -it $1 bash || docker exec -it $1 sh || echo "Usage: dockerexec container command"
+}
+alias dsh='dockerexec $1 $2'
+```
