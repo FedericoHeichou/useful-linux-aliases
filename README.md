@@ -91,3 +91,18 @@ function snapclear {
 }
 alias snapclear='snapclear'
 ```
+
+### Build and push Docker image
+```bash
+dockerpush() {(
+    [[ -z "$1" ]] && echo "Usage: $0 <name> [tag]" && exit 1
+    [[ -z "$2" ]] && TAG='latest' || TAG="$2"
+    [[ -z "`ls Dockerfile 2>/dev/null`" ]] && echo "Dockerfile not found in the current directory" && exit 1
+    URL='nexus.example.org:10000'
+    IMAGE="$1:$TAG"
+    set -x
+    docker build --tag "$IMAGE" . || exit 1
+    docker tag "$IMAGE" "$URL/$IMAGE" || exit 1
+    docker push "$URL/$IMAGE" || exit 1
+)}
+```
