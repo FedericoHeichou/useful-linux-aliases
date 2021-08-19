@@ -106,3 +106,13 @@ dockerpush() {(
     docker push "$URL/$IMAGE" || exit 1
 )}
 ```
+
+### Listing process and threads in a docker container
+```bash
+dockerthreads() {(
+    [[ -z "$1" ]] && echo "Usage: $0 containername" && exit 1
+    docker top $1 | tail -n +2 | awk '{print $2}' | while read p; do
+    ps -o pid,user,cmd:255 -Tp $p | tail -n +2 | uniq -c
+    done | awk '{gsub(/^\s+/, "", $0); print}{sum+=$1} END{print sum}'
+)}
+```
