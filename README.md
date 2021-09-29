@@ -116,3 +116,10 @@ dockerthreads() {(
     done | awk '{gsub(/^\s+/, "", $0); print}{sum+=$1} END{print sum}'
 )}
 ```
+
+### Print usage of cpu of a command like the `time` command style
+```bash
+cputime() {
+    cat <(grep 'cpu ' /proc/stat) <($@ && grep 'cpu ' /proc/stat) | awk -v RS="" '{print ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}'
+}
+```
