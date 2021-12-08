@@ -92,7 +92,7 @@ function snapclear {
 alias snapclear='snapclear'
 ```
 
-### Build and push Docker image
+#### Build and push Docker image
 ```bash
 dockerpush() {(
     [[ -z "$1" ]] && echo "Usage: $0 <name> [tag]" && exit 1
@@ -107,7 +107,7 @@ dockerpush() {(
 )}
 ```
 
-### Listing process and threads in a docker container
+#### Listing process and threads in a docker container
 ```bash
 dockerthreads() {(
     [[ -z "$1" ]] && echo "Usage: $0 containername" && exit 1
@@ -117,14 +117,14 @@ dockerthreads() {(
 )}
 ```
 
-### Print usage of cpu of a command like the `time` command style
+#### Print usage of cpu of a command like the `time` command style
 ```bash
 cputime() {
     cat <(grep 'cpu ' /proc/stat) <($@ && grep 'cpu ' /proc/stat) | awk -v RS="" '{print ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}'
 }
 ```
 
-### Removing snap from df output
+#### Removing snap from df output
 ```bash
 alias df='df -x"squashfs"'
 ```
